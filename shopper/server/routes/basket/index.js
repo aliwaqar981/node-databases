@@ -1,18 +1,17 @@
-const express = require("express");
+const express = require('express');
+const BasketService = require('../../services/BasketService');
+const ItemService = require('../../services/ItemService');
 
-module.exports = () => {
+module.exports = (config) => {
   const router = express.Router();
 
-  router.get("/", async (req, res) => {
-    return res.render("basket", {});
-
-    /*
+  router.get('/', async (req, res) => {
     if (!res.locals.currentUser) {
       req.session.messages.push({
-        type: "warning",
-        text: "Please log in first",
+        type: 'warning',
+        text: 'Please log in first',
       });
-      return res.redirect("/shop");
+      return res.redirect('/shop');
     }
     const basket = new BasketService(
       config.redis.client,
@@ -29,20 +28,16 @@ module.exports = () => {
         })
       );
     }
-    return res.render("basket", { items });
-    */
+    return res.render('basket', { items });
   });
 
-  router.get("/remove/:itemId", async (req, res, next) => {
-    return next("Not implemented");
-
-    /*
+  router.get('/remove/:itemId', async (req, res) => {
     if (!res.locals.currentUser) {
       req.session.messages.push({
-        type: "warning",
-        text: "Please log in first",
+        type: 'warning',
+        text: 'Please log in first',
       });
-      return res.redirect("/shop");
+      return res.redirect('/shop');
     }
 
     try {
@@ -52,24 +47,23 @@ module.exports = () => {
       );
       await basket.remove(req.params.itemId);
       req.session.messages.push({
-        type: "success",
-        text: "The item was removed from the the basket",
+        type: 'success',
+        text: 'The item was removed from the the basket',
       });
     } catch (err) {
       req.session.messages.push({
-        type: "danger",
-        text: "There was an error removing the item from the basket",
+        type: 'danger',
+        text: 'There was an error removing the item from the basket',
       });
       console.error(err);
-      return res.redirect("/basket");
+      return res.redirect('/basket');
     }
 
-    return res.redirect("/basket");
-    */
+    return res.redirect('/basket');
   });
 
-  router.get("/buy", async (req, res, next) => {
-    return next("Not implemented");
+  router.get('/buy', async (req, res, next) => {
+    return next('Not implemented');
     /*
     if (!res.locals.currentUser) {
       req.session.messages.push({
